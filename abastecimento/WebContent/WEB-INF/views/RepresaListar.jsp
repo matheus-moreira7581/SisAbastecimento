@@ -19,10 +19,10 @@
     <!-- Container Principal -->
     <div id="main" class="container">
         <h3 class="page-header">Consultar Represa</h3>
-        <form action="ListarRepresasExibir" method="post">
+        <form action="ListarRepresasExibir" method="get">
             <div class="row">
                 <div class="form-group col-md-4">
-                    <label for="fila">Escolha o Sistema de Abastecimento:</label>
+                    <label for="SisAbs">Escolha o Sistema de Abastecimento:</label>
                     <select class="form-control" name="id">
                         <c:forEach var="abs" items="${SisAbs}">
                             <option value="${abs.id}">${abs.nome}</option>

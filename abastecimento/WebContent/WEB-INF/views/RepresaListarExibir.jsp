@@ -40,7 +40,7 @@
 	                                <td>${rs.volumeReservaTecnica}</td>
 	                                <td>
 	                                  <button name="id" value="${rs.id}" class="btn btn-warning">Exibir</button>
-									  <button name="id" formaction="atualizarRepresa" value="${rs.id}" class="btn btn-success">Atualizar</button>
+									  <button name="id" formaction="atualizarRepresaExibir" value="${rs.id}" class="btn btn-success">Atualizar</button>
 									  <button name="id" formaction="excluirRepresa" value="${rs.id}" class="btn btn-danger">Excluir</button>			                         
 			                      </td>
 	                            </tr>

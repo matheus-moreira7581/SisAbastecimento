@@ -149,4 +149,63 @@ public class ManterAbastecimentoController {
 			return "Erro";
 		}
 	}
+	
+	@RequestMapping("novaRepresa")
+	public String novaRepresa(Model model) {
+		try {
+			List<SisAbastecimento> sisAbs = listarAbastecimentos();
+			model.addAttribute("SisAbs", sisAbs);
+			return "represa/novaRepresa";
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "Erro";
+		}
+		
+	}
+	
+	@RequestMapping("cadastrarRepresa")
+	public String cadastrarSisAbs(@Valid Represa represa) {
+		try {
+			represaService.novaRepresa(represa);
+			return "redirect:/listarAbastecimentoExibir";
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "Erro";
+		}
+	}
+	
+	@RequestMapping("atualizarRepresaExibir")
+	public String atualizarRepresaExibir(@RequestParam int id, Model model) {
+		try {
+			model.addAttribute("represa", represaService.selecionarRepresa(id));
+			model.addAttribute("SisAbs", listarAbastecimentos());
+			return "represa/atualizarRepresa";
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "Erro";
+		}
+	}
+	
+	@RequestMapping("atualizarRepresa")
+	public String atualizarRepresa(Represa represa, Model model) {
+		try {
+			represaService.atualizarRepresa(represa);
+			return "redirect:/ListarRepresasExibir?id="+ represa.getSisAbs().getId();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "Erro";
+		}
+	}
+	
+	@RequestMapping("excluirRepresa")
+	public String excluirRepresa(@RequestParam int id) {
+		try {
+			Represa represa = represaService.selecionarRepresa(id);
+			represaService.excluirRepresa(id);
+			return "redirect:/ListarRepresasExibir?id=" + represa.getSisAbs().getId();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "Erro";
+		}
+	}
 }

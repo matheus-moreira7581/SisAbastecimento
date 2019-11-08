@@ -33,14 +33,14 @@
                     </div>
                     <div class="row">
                         <div class="col-md-4">
-                            <p><strong>Latitude</strong>
+                            <p><strong>Volume Util</strong>
                             </p>
                             <p>
                                 ${represa.volumeUtil}
                             </p>
                         </div>
                         <div class="col-md-4">
-                            <p><strong>Longitude</strong>
+                            <p><strong>Volume Reserva Tecnica</strong>
                             </p>
                             <p>
                                 ${represa.volumeReservaTecnica}
@@ -50,13 +50,13 @@
                     </div>
                     </div>
                     <hr />
-                    <div id="actions" class="row">
+                    <!-- <div id="actions" class="row">
                         <div class="col-md-12">
                             <a href="alterar_local?id=${represa.id }" class="btn btn-primary">Alterar</a>
                             <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Excluir</a>
                             <a href="ListarRepresasExibir" class="btn btn-default">Voltar</a>
                         </div>
-                    </div>
+                    </div>  -->
                     <hr />
                     <h3>Historico de Volume Armazenado</h3>
                     <hr />

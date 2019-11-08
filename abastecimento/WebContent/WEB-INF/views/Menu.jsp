@@ -14,6 +14,7 @@
                 <ul class="nav navbar-nav navbar-right">
                 	<li><a href="listarSisAbsExibir">Consultar SisAbs</a></li>
                     <li><a href="listarAbastecimentoExibir">Consultar Represas</a></li>
+                    <li><a href="novaRepresa">Cadastrar Represa</a></li>
                 </ul>
             </div>
         </div>

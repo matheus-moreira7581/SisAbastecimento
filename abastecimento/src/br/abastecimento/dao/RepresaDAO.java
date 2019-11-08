@@ -46,7 +46,7 @@ public class RepresaDAO {
 	}
 	
 	public int atualizarRepresa(Represa represa) throws IOException {
-		Represa represa2 = manager.merge(represa);
+		manager.merge(represa);
 		return represa.getId();
 	}
 }
