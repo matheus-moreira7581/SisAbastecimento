@@ -12,8 +12,8 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="listarAbastecimentoExibir">Consultar Represas</a>
-                    </li>
+                	<li><a href="listarSisAbsExibir">Consultar SisAbs</a></li>
+                    <li><a href="listarAbastecimentoExibir">Consultar Represas</a></li>
                 </ul>
             </div>
         </div>

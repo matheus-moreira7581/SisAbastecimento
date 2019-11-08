@@ -3,9 +3,12 @@ package br.abastecimento.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -30,11 +33,25 @@ public class ManterAbastecimentoController {
 		return "index";
 	}
 	
+	private List<SisAbastecimento> listarAbastecimentos() throws IOException {
+		return sisAbsService.selecionarTodosSisAbastecimento();
+	}
+	
+	@RequestMapping("listarSisAbsExibir")
+	public String listarSisAbsExibir(Model model) {
+		try {
+			model.addAttribute("SisAbs", listarAbastecimentos());
+			return "SisAbsListarExibir";
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "Erro";
+		}
+	}
+	
 	@RequestMapping("listarAbastecimentoExibir")
 	public String listarAbastecimento(Model model) {
 		try {
-//			List<SisAbastecimento> sisAbs = sisAbsService.selecionarTodosSisAbastecimento();
-			model.addAttribute("SisAbs", sisAbsService.selecionarTodosSisAbastecimento());
+			model.addAttribute("SisAbs", listarAbastecimentos());
 			return "RepresaListar";
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -43,10 +60,18 @@ public class ManterAbastecimentoController {
 	}
 	
 	@RequestMapping("ListarRepresasExibir")
-	public String listarRepresas(Model model) {
+	public String listarRepresas(@Valid SisAbastecimento sisAbs, BindingResult result, Model model) {
 		try {
-//			List<Represa> represas = represaService.listarTodasRepresas();
-			model.addAttribute("represas", represaService.listarTodasRepresas());
+			if(result.hasFieldErrors("id")) {
+				model.addAttribute("SisAbs", listarAbastecimentos());
+				System.out.println("Deu erro:" + result.toString());
+				return "RepresaListar";
+			}
+			sisAbs = sisAbsService.selecionarSisAbastecimento(sisAbs.getId());
+			model.addAttribute("Sis", sisAbs);
+			
+			List<Represa> represas = represaService.listarTodasRepresas(sisAbs);
+			model.addAttribute("represas", represas);
 			return "RepresaListarExibir";
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -59,6 +84,66 @@ public class ManterAbastecimentoController {
 		try {
 			model.addAttribute("represa", represaService.selecionarRepresa(id));
 			return "represa/represamostrar";
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "Erro";
+		}
+	}
+	
+	@RequestMapping("exibirSisAbs")
+	public String selecionarSisAbs(@RequestParam int id, Model model) {
+		try {
+			model.addAttribute("sAbs", sisAbsService.selecionarSisAbastecimento(id));
+			return "SisAbs/SisAbsmostrar";
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "Erro";
+		}
+	}
+	
+	@RequestMapping("novoSisAbs")
+	public String novoSisAbs() {
+		return "SisAbs/cadastroSisAbs";
+	}
+	
+	@RequestMapping("cadastrarSisAbs")
+	public String cadastrarSisAbs(@Valid SisAbastecimento sisAbs, BindingResult result) {
+		try {
+			sisAbsService.novoSisAbastecimento(sisAbs);
+			return "redirect:/listarSisAbsExibir";
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "Erro";
+		}
+	}
+	
+	@RequestMapping("excluirSisAbs")
+	public String excluirSisAbs(@RequestParam int id) {
+		try {
+			sisAbsService.excluirSisAbastecimento(id);
+			return "redirect:/listarSisAbsExibir";
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "Erro";
+		}
+	}
+	
+	@RequestMapping("atualizarSisAbsExibir")
+	public String atualizarSisAbsExibir(@RequestParam int id, Model model) {
+		try {
+			model.addAttribute("sAbs", sisAbsService.selecionarSisAbastecimento(id));
+			return "SisAbs/atualizarSisAbs";
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "Erro";
+		}
+	}
+	
+	@RequestMapping("atualizarSisAbs")
+	public String atualizarSisAbs(SisAbastecimento sisAbs, Model model) {
+		try {
+			sisAbsService.atualizarSisAbastecimento(sisAbs);
+			return "redirect:/listarSisAbsExibir";
 		} catch (IOException e) {
 			e.printStackTrace();
 			return "Erro";

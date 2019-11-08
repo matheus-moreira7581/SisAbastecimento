@@ -8,7 +8,7 @@
             <meta charset="utf-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>Exibir Represa</title>
+            <title>Exibir Sistema de Abastecimento</title>
 
             <link href="css/bootstrap.min.css" rel="stylesheet">
             <link href="css/style.css" rel="stylesheet">
@@ -19,7 +19,7 @@
 				<c:import url="../Menu.jsp"/>
                 <!-- Container Principal -->
                 <div id="main" class="container">
-                    <h3 class="page-header">Exibir Represa #${represa.id }</h3>
+                    <h3 class="page-header">Exibir Sistema de Abastecimento #${sAbs.id }</h3>
                     <div class="row">
                     <div class="col-md-8">
                     <div class="row">
@@ -27,23 +27,23 @@
                             <p><strong>Nome</strong>
                             </p>
                             <p>
-                                ${represa.nomeRepresa}
+                                ${sAbs.nome}
                             </p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
-                            <p><strong>Latitude</strong>
+                            <p><strong>Estado</strong>
                             </p>
                             <p>
-                                ${represa.volumeUtil}
+                                ${sAbs.estado}
                             </p>
                         </div>
                         <div class="col-md-4">
-                            <p><strong>Longitude</strong>
+                            <p><strong>Municipios</strong>
                             </p>
                             <p>
-                                ${represa.volumeReservaTecnica}
+                                ${sAbs.municipio}
                             </p>
                         </div>
                     </div>
@@ -52,15 +52,11 @@
                     <hr />
                     <div id="actions" class="row">
                         <div class="col-md-12">
-                            <a href="alterar_local?id=${represa.id }" class="btn btn-primary">Alterar</a>
+                            <a href="alterar_local?id=${sAbs.id }" class="btn btn-primary">Alterar</a>
                             <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Excluir</a>
                             <a href="ListarRepresasExibir" class="btn btn-default">Voltar</a>
                         </div>
                     </div>
-                    <hr />
-                    <h3>Historico de Volume Armazenado</h3>
-                    <hr />
-                    <h3>Historico de Pluviometria</h3>
                 </div>
                 <script src="js/jquery.min.js"></script>
                 <script src="js/bootstrap.min.js"></script>

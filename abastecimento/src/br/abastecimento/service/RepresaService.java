@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.abastecimento.dao.RepresaDAO;
 import br.abastecimento.entity.Represa;
+import br.abastecimento.entity.SisAbastecimento;
 
 @Service
 public class RepresaService {
@@ -22,8 +23,8 @@ public class RepresaService {
 		return dao.inserirRepresa(represa);
 	}
 	
-	public List<Represa> listarTodasRepresas() throws IOException {
-		return dao.listarRepresa();
+	public List<Represa> listarTodasRepresas(SisAbastecimento sisAbs) throws IOException {
+		return dao.listarRepresa(sisAbs);
 	}
 	
 	public Represa selecionarRepresa(int id) throws IOException {

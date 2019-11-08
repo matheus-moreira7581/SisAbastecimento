@@ -5,10 +5,12 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
 import br.abastecimento.entity.Represa;
+import br.abastecimento.entity.SisAbastecimento;
 
 @Repository
 public class RepresaDAO {
@@ -31,8 +33,16 @@ public class RepresaDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Represa> listarRepresa() throws IOException {
-		return manager.createQuery("select r from Represa r").getResultList();
+	public List<Represa> listarRepresa(SisAbastecimento sisAbs) throws IOException {
+		sisAbs = manager.find(SisAbastecimento.class, sisAbs.getId());
+		
+		String jpql = "select r from Represa r where r.sisAbs = :sisAbs";
+		
+		Query query = manager.createQuery(jpql);
+		query.setParameter("sisAbs", sisAbs);
+		
+		List<Represa> result = query.getResultList();
+		return result;
 	}
 	
 	public int atualizarRepresa(Represa represa) throws IOException {

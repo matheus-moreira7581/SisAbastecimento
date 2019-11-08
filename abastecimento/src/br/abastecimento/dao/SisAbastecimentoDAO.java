@@ -35,8 +35,7 @@ public class SisAbastecimentoDAO {
 		return manager.createQuery("select s from SisAbastecimento s").getResultList(); 
 	}
 	
-	public int atualizarSisAbastecimento(SisAbastecimento sisAbs) throws IOException {
-		SisAbastecimento sisAbs2 = manager.merge(sisAbs);
-		return sisAbs.getId();
+	public void atualizarSisAbastecimento(SisAbastecimento sisAbs) throws IOException {
+		manager.merge(sisAbs);
 	}
 }

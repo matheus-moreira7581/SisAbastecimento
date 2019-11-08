@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 public class SisAbastecimento {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
+	@Column(name="id_abastecimento")
 	private int id;
 	
 	@NotNull

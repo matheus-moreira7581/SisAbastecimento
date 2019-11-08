@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -27,6 +29,17 @@ public class Represa {
 	@Column(name="volumeReservaTecnica")
 	private int volumeReservaTecnica;
 	
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name="id_abastecimento")
+	private SisAbastecimento sisAbs;
+	
+	public SisAbastecimento getSisAbs() {
+		return sisAbs;
+	}
+	public void setSisAbs(SisAbastecimento sisAbs) {
+		this.sisAbs = sisAbs;
+	}
 	private int volumeArmazenado;
 	private int pluviometria;
 	
