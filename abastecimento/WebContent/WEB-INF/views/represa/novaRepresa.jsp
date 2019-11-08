@@ -43,13 +43,13 @@
 			<form action="cadastrarRepresa" method="post" id="cadastro">
 				<h1>Cadastro de Represa</h1>
 				<hr>
-				<div class="form-group row maxL">
+				<div class="form-group row">
 					<div class="col-md-3">
 						<label for="validationDefault01">Nome</label> 
 						<input type="text" class="form-control" name="nomeRepresa" id="validationDefault01" required>
 						
 					</div>
-					<div class="col-md-3 maxL">
+					<div class="col-md-3">
 						<label for="fila">Escolha o Sistema de Abastecimento:</label>
                     	<select class="form-control" name="sisAbs.id">
 	                        <c:forEach var="abs" items="${SisAbs}">
@@ -58,7 +58,7 @@
                     	</select>
 					</div>
 				</div>
-				<div class="form-group row maxL">
+				<div class="form-group row">
 					<div class="col-md-3">
 						<label for="validationDefaultUsername">Volue Util</label>
 						<div class="input-group">
