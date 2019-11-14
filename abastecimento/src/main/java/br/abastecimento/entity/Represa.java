@@ -7,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -40,8 +39,6 @@ public class Represa {
 	public void setSisAbs(SisAbastecimento sisAbs) {
 		this.sisAbs = sisAbs;
 	}
-	private int volumeArmazenado;
-	private int pluviometria;
 	
 	public int getId() {
 		return id;
@@ -66,18 +63,6 @@ public class Represa {
 	}
 	public void setVolumeReservaTecnica(int volumeReservaTecnica) {
 		this.volumeReservaTecnica = volumeReservaTecnica;
-	}
-	public int getVolumeArmazenado() {
-		return volumeArmazenado;
-	}
-	public void setVolumeArmazenado(int volumeArmazenado) {
-		this.volumeArmazenado = volumeArmazenado;
-	}
-	public int getPluviometria() {
-		return pluviometria;
-	}
-	public void setPluviometria(int pluviometria) {
-		this.pluviometria = pluviometria;
 	}
 	
 }

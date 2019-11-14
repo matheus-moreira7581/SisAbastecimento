@@ -16,8 +16,8 @@ import br.abastecimento.entity.SisAbastecimento;
 @Service
 @Transactional
 public class RepresaService {
-	RepresaDAO dao;
-	SisAbastecimentoDAO sisAbsDao;
+	private RepresaDAO dao;
+	private SisAbastecimentoDAO sisAbsDao;
 	
 	@Autowired
 	public RepresaService(RepresaDAO dao, SisAbastecimentoDAO sisAbsDAO) {

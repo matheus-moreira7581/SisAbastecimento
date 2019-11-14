@@ -27,7 +27,7 @@
                                 <h4 class="modal-title" id="modalLabel">Registrar Volume Armazenado</h4>
                             </div>
                             <div class="modal-body">
-                            	<form action="remover_local" method="post">
+                            	<form action="registrarVolArmazenado" method="post">
                             		<div class="form-group row">
 	                                <label for="validationDefault02">Digite o Volume Armazenado:</label>
 	                                <input type="number" class="form-control"
@@ -55,15 +55,14 @@
                                 <h4 class="modal-title" id="modalLabel">Registrar Pluviometria</h4>
                             </div>
                             <div class="modal-body">
-                                <form action="remover_local" method="post">
+                                <form action="registrarPluviometria" method="post">
                             		<div class="form-group row">
 	                                <label for="validationDefault02">Digite a Pluviometria:</label>
-	                                <input type="number" class="form-control"
-									name="pluviometria"
-									aria-describedby="inputGroupPrepend2" required max="999" maxlength="3" oninput="maxLengthCheck(this)">
+	                                <input type="number" class="form-control" name="pluviometria" aria-describedby="inputGroupPrepend2" 
+	                                required max="999" maxlength="3" oninput="maxLengthCheck(this)">
 									</div>
 									<div class="form-group row">
-	                                    <input type="hidden" name="id" value="${represa.id }" />
+	                                    <input type="hidden" name="id" value="${represa.id}" />
 	                                    <button type="submit" class="btn btn-primary">Registrar</button>
 	                                </div>    
                                 </form>
@@ -81,11 +80,38 @@
                     <div class="row">
                     <div class="col-md-8">
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-6">
                             <p><strong>Nome</strong>
                             </p>
                             <p>
                                 ${represa.nomeRepresa}
+                            </p>
+                        </div>
+                        <div class="col-md-2">
+                            <p><strong>Indice 1:</strong></p>
+                            <p>
+                            	<c:if test="${not empty indice1}"> 
+                            		<fmt:formatNumber type="number" maxFractionDigits="2" value="${indice1}"/> 
+                            	</c:if>
+                            	<c:if test="${empty indice1}">Vazio</c:if>
+                            </p>
+                        </div>
+                        <div class="col-md-2">
+                            <p><strong>Indice 2:</strong></p>
+                            <p>
+                            	<c:if test="${not empty indice2}"> 
+                            		<fmt:formatNumber type="number" maxFractionDigits="2" value="${indice2}"/> 
+                            	</c:if>
+                            	<c:if test="${empty indice2}"> Vazio </c:if>
+                            </p>
+                        </div>
+                        <div class="col-md-2">
+                            <p><strong>Indice 3:</strong></p>
+                            <p>
+                            	<c:if test="${not empty indice3}"> 
+                            		<fmt:formatNumber type="number" maxFractionDigits="2" value="${indice3}"/>
+                            	</c:if>
+                            	<c:if test="${empty indice3}"> Vazio </c:if>
                             </p>
                         </div>
                     </div>
@@ -117,8 +143,54 @@
                     </div> 
                     <hr />
                     <h3>Historico de Volume Armazenado</h3>
-                    <hr />
+                    <c:if test="${not empty volArmazenado}">
+			            <div class="table-responsive col-md-12">
+			                <table class="table table-striped">
+			                    <thead>
+			                        <tr>
+			                            <th>Id</th>
+			                            <th>Volume Armazeando</th>
+			                        </tr>
+			                    </thead>
+			                    <tbody>
+			                        <c:forEach var="vas" items="${volArmazenado}">
+				                            <tr>
+				                                <td>${vas.id_volumeArmazenado} </td>
+				                                <td>${vas.volumeArmazenado} milhões de m³</td>
+				                            </tr>
+			                        </c:forEach>
+			                    </tbody>
+			                </table>
+			            </div>
+        			</c:if>
+			        <c:if test="${empty volArmazenado}">
+			            <div class="alert alert-info" role="alert">N&atilde;o h&aacute; volume armazenado nesta represa.</div>
+			        </c:if>
+			        <hr />
                     <h3>Historico de Pluviometria</h3>
+                    <c:if test="${not empty pluviometriaList}">
+			            <div class="table-responsive col-md-12">
+			                <table class="table table-striped">
+			                    <thead>
+			                        <tr>
+			                            <th>Id</th>
+			                            <th>Pluviometria</th>
+			                        </tr>
+			                    </thead>
+			                    <tbody>
+			                        <c:forEach var="pl" items="${pluviometriaList}">
+				                            <tr>
+				                                <td>${pl.id_pluviometria}</td>
+				                                <td>${pl.pluviometria} ml</td>
+				                            </tr>
+			                        </c:forEach>
+			                    </tbody>
+			                </table>
+			            </div>
+        			</c:if>
+			        <c:if test="${empty pluviometriaList}">
+			            <div class="alert alert-info" role="alert">N&atilde;o h&aacute; pluviometria nesta represa.</div>
+			        </c:if>
                 </div>
                 <script src="js/jquery.min.js"></script>
                 <script src="js/bootstrap.min.js"></script>

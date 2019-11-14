@@ -12,20 +12,29 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import br.abastecimento.entity.Pluviometria;
 import br.abastecimento.entity.Represa;
 import br.abastecimento.entity.SisAbastecimento;
+import br.abastecimento.entity.VolumeArmazenado;
+import br.abastecimento.service.PluviometriaService;
 import br.abastecimento.service.RepresaService;
 import br.abastecimento.service.SisAbastecimentoService;
+import br.abastecimento.service.VolumeArmazenadoService;
 
 @Controller
 public class ManterAbastecimentoController {
 	private RepresaService represaService;
 	private SisAbastecimentoService sisAbsService;
+	private VolumeArmazenadoService volArmazenadoService;
+	private PluviometriaService pluviometriaService;
 	
 	@Autowired
-	public ManterAbastecimentoController(RepresaService rs, SisAbastecimentoService sas) {
+	public ManterAbastecimentoController(RepresaService rs, SisAbastecimentoService sas, VolumeArmazenadoService vas, 
+			PluviometriaService ps) {
 		represaService = rs;
 		sisAbsService = sas;
+		volArmazenadoService = vas;
+		pluviometriaService = ps;
 	}
 	
 	@RequestMapping("index")
@@ -79,11 +88,69 @@ public class ManterAbastecimentoController {
 		}
 	}
 	
+	public float calcularIndice1(float volArmazenado, float volUtil) {
+		float indice1 = volArmazenado / volUtil * 100;
+		System.out.println("Resultado do Indice 1: " + indice1);
+		return indice1;
+	}
+	
+	public float calcularIndice2(float volUtil, float volReservaTecnica, float volArmazenado) {
+		float volTotal = volUtil + volReservaTecnica;
+		float indice2 = volArmazenado / volTotal * 100;
+		System.out.println("Resultado do Indice 2: " + indice2);
+		return indice2;
+	}
+	
+	public float calcularIndice3(float volArmazenado, float volReservaTecnica, float volUtil) {
+		float indice3 = (volArmazenado - volReservaTecnica) / volUtil * 100;
+		System.out.println("Resultado do Indice 3: " + indice3);
+		return indice3;
+	}
+	
 	@RequestMapping("exibirRepresa")
 	public String selecionarRepresa(@RequestParam int id, Model model) {
 		try {
+			Represa represa = represaService.selecionarRepresa(id);
+			List<VolumeArmazenado> volArmList = volArmazenadoService.listarVolArmazenado(represa);
+			model.addAttribute("indice1", calcularIndice1(volArmList.get(0).getVolumeArmazenado(), represa.getVolumeUtil()));
+			model.addAttribute("indice2", calcularIndice2(represa.getVolumeUtil(), represa.getVolumeReservaTecnica(), 
+					volArmList.get(0).getVolumeArmazenado()));
+			model.addAttribute("indice3", calcularIndice3(volArmList.get(0).getVolumeArmazenado(), represa.getVolumeReservaTecnica(), 
+					represa.getVolumeUtil()));
 			model.addAttribute("represa", represaService.selecionarRepresa(id));
+			model.addAttribute("volArmazenado", volArmList);
+			model.addAttribute("pluviometriaList", pluviometriaService.listarPluviometria(represa));
 			return "represa/represamostrar";
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "Erro";
+		}
+	}
+	
+	@RequestMapping("registrarVolArmazenado")
+	public String registrarVolArmazenado(@RequestParam int id, @RequestParam int volumeArmazenado, Model model) {
+		VolumeArmazenado volArmazenado = new VolumeArmazenado();
+		try {
+			Represa represa = represaService.selecionarRepresa(id);
+			volArmazenado.setVolumeArmazenado(volumeArmazenado);
+			volArmazenado.setRepresa(represa);
+			volArmazenadoService.registrarVolArmazenado(volArmazenado);
+			return "redirect:/exibirRepresa?id=" + id;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "Erro";
+		}
+	}
+	
+	@RequestMapping("registrarPluviometria")
+	public String registrarPluviometria(@RequestParam int id, @RequestParam int pluviometria, Model model) {
+		Pluviometria pluviometriaObj = new Pluviometria();
+		try {
+			Represa represa = represaService.selecionarRepresa(id);
+			pluviometriaObj.setPluviometria(pluviometria);
+			pluviometriaObj.setRepresa(represa);
+			pluviometriaService.registrarPluviometria(pluviometriaObj);
+			return "redirect:/exibirRepresa?id=" + id; 
 		} catch (IOException e) {
 			e.printStackTrace();
 			return "Erro";

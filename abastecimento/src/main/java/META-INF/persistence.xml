@@ -10,6 +10,8 @@ version="2.0">
 		<!-- entidade mapeada -->
 		<class>br.abastecimento.entity.Represa</class>
 		<class>br.abastecimento.entity.SisAbastecimento</class>
+		<class>br.abastecimento.entity.VolumeArmazenado</class>
+		<class>br.abastecimento.entity.Pluviometria</class>
 		<properties>
 			<!-- propriedades do hibernate -->
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
