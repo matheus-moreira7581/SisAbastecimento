@@ -52,6 +52,18 @@ CREATE TABLE IF NOT EXISTS `SisAbastecimento`.`volumearmazenado` (
 )
 ENGINE = InnoDB;
 
+CREATE TABLE IF NOT EXISTS `SisAbastecimento`.`pluviometria` (
+	`id_pluviometria` INT NOT NULL AUTO_INCREMENT,
+    `id_represa` INT NOT NULL,
+    `pluviometria` INT NOT NULL,
+    PRIMARY KEY (`id_pluviometria`),
+    CONSTRAINT `fk_pluviometria_represa` FOREIGN KEY (`id_represa`)
+    REFERENCES `SisAbastecimento`.`represa` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+)
+ENGINE = InnoDB;
+
 insert into abastecimento values(null, 'Abastecimento 1', 'Estado 1', 'Municipio 1, Municipio 2, Municipio 3, Municipio 4, Municipio 5,');
 insert into abastecimento values(null, 'Abastecimento 2', 'Estado 2', 'Municipio 1, Municipio 2, Municipio 3, Municipio 4, Municipio 5,');
 insert into abastecimento values(null, 'Abastecimento 3', 'Estado 3', 'Municipio 1, Municipio 2, Municipio 3, Municipio 4, Municipio 5,');
@@ -66,8 +78,12 @@ insert into represa values(null, 'Represa 7', 700, 175, 3);
 insert into represa values(null, 'Represa 8', 800, 200, 3);
 insert into represa values(null, 'Represa 9', 900, 225, 3);
 
-select * from represa where id_abastecimento = 1;
+--select * from represa where id_abastecimento = 1;
 
-select * from abastecimento;
+--select * from abastecimento;
+
+--select * from volumearmazenado;
+
+-- select * from pluviometria;
 
 -- drop database SisAbastecimento;
