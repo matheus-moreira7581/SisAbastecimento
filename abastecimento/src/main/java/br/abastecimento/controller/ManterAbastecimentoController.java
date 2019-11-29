@@ -29,6 +29,10 @@ public class ManterAbastecimentoController {
 	private VolumeArmazenadoService volArmazenadoService;
 	private PluviometriaService pluviometriaService;
 	
+	public ManterAbastecimentoController() {
+
+	}
+	
 	@Autowired
 	public ManterAbastecimentoController(RepresaService rs, SisAbastecimentoService sas, VolumeArmazenadoService vas, 
 			PluviometriaService ps) {
@@ -89,6 +93,10 @@ public class ManterAbastecimentoController {
 		}
 	}
 	
+	public float calcularVolTotal(float volUtil, float volReservaTecnica) {
+		return volUtil + volReservaTecnica;
+	}
+	
 	public float calcularIndice1(float volArmazenado, float volUtil) {
 		float indice1 = volArmazenado / volUtil * 100;
 		System.out.println("Resultado do Indice 1: " + indice1);
@@ -96,7 +104,7 @@ public class ManterAbastecimentoController {
 	}
 	
 	public float calcularIndice2(float volUtil, float volReservaTecnica, float volArmazenado) {
-		float volTotal = volUtil + volReservaTecnica;
+		float volTotal = calcularVolTotal(volUtil, volReservaTecnica);
 		float indice2 = volArmazenado / volTotal * 100;
 		System.out.println("Resultado do Indice 2: " + indice2);
 		return indice2;
@@ -107,6 +115,8 @@ public class ManterAbastecimentoController {
 		System.out.println("Resultado do Indice 3: " + indice3);
 		return indice3;
 	}
+	
+	
 	
 	@RequestMapping("exibirRepresa")
 	public String selecionarRepresa(@RequestParam int id, Model model) {
