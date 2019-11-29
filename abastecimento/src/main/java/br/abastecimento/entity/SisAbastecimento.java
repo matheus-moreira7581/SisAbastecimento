@@ -31,6 +31,21 @@ public class SisAbastecimento implements Serializable{
 	@NotNull
 	@Column(name="municipio")
 	private String municipio;
+	
+	@NotNull
+	@Column(name="deletado")
+	private String deletado;
+	
+	public static final String SIM = "sim";
+	public static final String NAO = "nao";
+
+	public String getDeletado() {
+		return deletado;
+	}
+
+	public void setDeletado(String deletado) {
+		this.deletado = deletado;
+	}
 
 	public int getId() {
 		return id;
@@ -62,5 +77,11 @@ public class SisAbastecimento implements Serializable{
 
 	public void setMunicipio(String municipio) {
 		this.municipio = municipio;
+	}
+
+	@Override
+	public String toString() {
+		return "SisAbastecimento [id=" + id + ", nome=" + nome + ", estado=" + estado + ", municipio=" + municipio
+				+ ", deletado=" + deletado + "]";
 	}
 }

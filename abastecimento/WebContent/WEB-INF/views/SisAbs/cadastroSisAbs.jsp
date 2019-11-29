@@ -63,6 +63,7 @@
 						<label for="validationDefault02">Municipios</label>
 						<textarea class="form-control" name="municipio"
 							id="validationDefault02" required></textarea>
+						<input type="hidden" name="deletado" value="nao">
 					</div>
 				</div>
 				<div class="form-row">

@@ -26,6 +26,7 @@ public class RepresaService {
 	}
 	
 	public int novaRepresa(Represa represa) throws IOException {
+		represa.setRepresaDeletado(Represa.NAO);
 		represa = prencherLacuna(represa);
 		return dao.inserirRepresa(represa);
 	}
@@ -36,6 +37,10 @@ public class RepresaService {
 		return represa;
 	}
  	
+	public List<Represa> listarRepresasAtivas(SisAbastecimento sisAbs) throws IOException {
+		return dao.listarRepresaAtivas(sisAbs);
+	}
+	
 	public List<Represa> listarTodasRepresas(SisAbastecimento sisAbs) throws IOException {
 		return dao.listarRepresa(sisAbs);
 	}
@@ -45,11 +50,13 @@ public class RepresaService {
 	}
 	
 	public int atualizarRepresa(Represa represa) throws IOException {
+		represa.setRepresaDeletado(Represa.NAO);
 		represa = prencherLacuna(represa);
 		return dao.atualizarRepresa(represa);
 	}
 	
-	public void excluirRepresa(int id) throws IOException {
-		dao.excluirRepresa(id);
+	public void excluirRepresa(Represa represa) throws IOException {
+		represa.setRepresaDeletado(Represa.SIM);
+		dao.excluirRepresa(represa);
 	}
 }

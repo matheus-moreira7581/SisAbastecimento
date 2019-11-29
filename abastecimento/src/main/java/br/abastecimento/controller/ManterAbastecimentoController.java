@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.abastecimento.entity.Pluviometria;
@@ -43,7 +44,7 @@ public class ManterAbastecimentoController {
 	}
 	
 	private List<SisAbastecimento> listarAbastecimentos() throws IOException {
-		return sisAbsService.selecionarTodosSisAbastecimento();
+		return sisAbsService.selecionarSisAbastecimentoAtivos();
 	}
 	
 	@RequestMapping("listarSisAbsExibir")
@@ -79,7 +80,7 @@ public class ManterAbastecimentoController {
 			sisAbs = sisAbsService.selecionarSisAbastecimento(sisAbs.getId());
 			model.addAttribute("Sis", sisAbs);
 			
-			List<Represa> represas = represaService.listarTodasRepresas(sisAbs);
+			List<Represa> represas = represaService.listarRepresasAtivas(sisAbs);
 			model.addAttribute("represas", represas);
 			return "RepresaListarExibir";
 		} catch (IOException e) {
@@ -232,9 +233,10 @@ public class ManterAbastecimentoController {
 		
 	}
 	
-	@RequestMapping("cadastrarRepresa")
+	@RequestMapping(value = "cadastrarRepresa", method = RequestMethod.POST)
 	public String cadastrarSisAbs(@Valid Represa represa) {
 		try {
+			System.out.println(represa.toString());
 			represaService.novaRepresa(represa);
 			return "redirect:/listarAbastecimentoExibir";
 		} catch (IOException e) {
@@ -270,7 +272,7 @@ public class ManterAbastecimentoController {
 	public String excluirRepresa(@RequestParam int id) {
 		try {
 			Represa represa = represaService.selecionarRepresa(id);
-			represaService.excluirRepresa(id);
+			represaService.excluirRepresa(represa);
 			return "redirect:/ListarRepresasExibir?id=" + represa.getSisAbs().getId();
 		} catch (IOException e) {
 			e.printStackTrace();

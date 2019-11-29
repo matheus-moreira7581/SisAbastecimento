@@ -23,13 +23,26 @@ public class RepresaDAO {
 		return represa.getId();
 	}
 	
-	public void excluirRepresa(int id) throws IOException {
-		Represa represa = manager.find(Represa.class, id);
-		manager.remove(represa);
+	public void excluirRepresa(Represa represa) throws IOException {
+		manager.merge(represa);
 	}
 	
 	public Represa selecionarRepresa(int id) throws IOException {
 		return manager.find(Represa.class, id);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Represa> listarRepresaAtivas(SisAbastecimento sisAbs) throws IOException {
+		sisAbs = manager.find(SisAbastecimento.class, sisAbs.getId());
+		
+		String jpql = "select r from Represa r where r.sisAbs = :sisAbs and r.represaDeletado = :deletado";
+		
+		Query query = manager.createQuery(jpql);
+		query.setParameter("sisAbs", sisAbs);
+		query.setParameter("deletado", Represa.NAO);
+		
+		List<Represa> result = query.getResultList();
+		return result;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -40,6 +53,7 @@ public class RepresaDAO {
 		
 		Query query = manager.createQuery(jpql);
 		query.setParameter("sisAbs", sisAbs);
+	
 		
 		List<Represa> result = query.getResultList();
 		return result;

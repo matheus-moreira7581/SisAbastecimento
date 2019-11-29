@@ -72,6 +72,7 @@
 						<input type="number" class="form-control"
 								name="volumeReservaTecnica"
 								aria-describedby="inputGroupPrepend2" required max="999" maxlength="3" oninput="maxLengthCheck(this)">
+						<input type="hidden" name="represaDeletado" value="nao">
 					</div>
 				</div>
 						<button class="btn btn-success" type="submit">Cadastrar</button> 

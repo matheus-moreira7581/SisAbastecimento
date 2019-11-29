@@ -37,6 +37,20 @@ public class Represa implements Serializable{
 	@JoinColumn(name="id_abastecimento")
 	private SisAbastecimento sisAbs;
 	
+	@NotNull
+	@Column(name="represaDeletado")
+	private String represaDeletado;
+	
+	public static final String SIM = "sim";
+	public static final String NAO = "nao";
+	
+
+	public String getRepresaDeletado() {
+		return represaDeletado;
+	}
+	public void setRepresaDeletado(String represaDeletado) {
+		this.represaDeletado = represaDeletado;
+	}
 	public SisAbastecimento getSisAbs() {
 		return sisAbs;
 	}
@@ -68,5 +82,13 @@ public class Represa implements Serializable{
 	public void setVolumeReservaTecnica(int volumeReservaTecnica) {
 		this.volumeReservaTecnica = volumeReservaTecnica;
 	}
+	@Override
+	public String toString() {
+		return "Represa [id=" + id + ", nomeRepresa=" + nomeRepresa + ", volumeUtil=" + volumeUtil
+				+ ", volumeReservaTecnica=" + volumeReservaTecnica + ", sisAbs=" + sisAbs + ", represaDeletado="
+				+ represaDeletado + "]";
+	}
+	
+
 	
 }

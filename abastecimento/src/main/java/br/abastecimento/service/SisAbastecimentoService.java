@@ -22,6 +22,7 @@ public class SisAbastecimentoService {
 	}
 	
 	public int novoSisAbastecimento(SisAbastecimento sisAbs) throws IOException {
+		sisAbs.setDeletado(SisAbastecimento.NAO);
 		return dao.inserirSisAbastecimento(sisAbs);
 	}
 	
@@ -29,15 +30,22 @@ public class SisAbastecimentoService {
 		return dao.listarSisAbastecimento();
 	}
 	
+	public List<SisAbastecimento> selecionarSisAbastecimentoAtivos() throws IOException {
+		return dao.listarSisAbastecimentoAtivos();
+	}
+	
 	public SisAbastecimento selecionarSisAbastecimento(int id) throws IOException {
 		return dao.selecionarSisAbastecimento(id);
 	}
 	
 	public void excluirSisAbastecimento(int id) throws IOException {
-		dao.excluirSisAbastecimento(id);
+		SisAbastecimento sisAbs = selecionarSisAbastecimento(id);
+		sisAbs.setDeletado(SisAbastecimento.SIM);
+		dao.excluirSisAbastecimento(sisAbs);
 	}
 	
 	public void atualizarSisAbastecimento(SisAbastecimento sisAbs) throws IOException {
+		sisAbs.setDeletado(SisAbastecimento.NAO);
 		dao.atualizarSisAbastecimento(sisAbs);
 	}
 }
