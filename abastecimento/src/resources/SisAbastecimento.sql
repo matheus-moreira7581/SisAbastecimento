@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS `SisAbastecimento`.`abastecimento` (
   `nome` VARCHAR(50) NOT NULL,
   `estado` VARCHAR(50) not null,
   `municipio` VARCHAR(500) not null,
+  `deletado` enum('nao','sim') not null,
   PRIMARY KEY (`id_abastecimento`))
 ENGINE = InnoDB;
 
@@ -32,6 +33,7 @@ CREATE TABLE IF NOT EXISTS `SisAbastecimento`.`represa` (
   `volumeUtil` INT NOT NULL,
   `volumeReservaTecnica` INT NOT NULL,
   `id_abastecimento` INT NOT NULL,
+  `represaDeletado` enum('nao','sim') not null,
   PRIMARY KEY (`id`),
   INDEX `fk_represa_abastecimento_idx` (`id_abastecimento` ASC),
   CONSTRAINT `fk_represa_abastecimento` FOREIGN KEY (`id_abastecimento`)
@@ -64,19 +66,19 @@ CREATE TABLE IF NOT EXISTS `SisAbastecimento`.`pluviometria` (
 )
 ENGINE = InnoDB;
 
-insert into abastecimento values(null, 'Abastecimento 1', 'Estado 1', 'Municipio 1, Municipio 2, Municipio 3, Municipio 4, Municipio 5,');
-insert into abastecimento values(null, 'Abastecimento 2', 'Estado 2', 'Municipio 1, Municipio 2, Municipio 3, Municipio 4, Municipio 5,');
-insert into abastecimento values(null, 'Abastecimento 3', 'Estado 3', 'Municipio 1, Municipio 2, Municipio 3, Municipio 4, Municipio 5,');
+insert into abastecimento values(null, 'Abastecimento 1', 'Estado 1', 'Municipio 1, Municipio 2, Municipio 3, Municipio 4, Municipio 5,','nao');
+insert into abastecimento values(null, 'Abastecimento 2', 'Estado 2', 'Municipio 1, Municipio 2, Municipio 3, Municipio 4, Municipio 5,','nao');
+insert into abastecimento values(null, 'Abastecimento 3', 'Estado 3', 'Municipio 1, Municipio 2, Municipio 3, Municipio 4, Municipio 5,','nao');
 
-insert into represa values(null, 'Represa 1', 100, 25, 1);
-insert into represa values(null, 'Represa 2', 200, 50, 1);
-insert into represa values(null, 'Represa 3', 300, 75, 1);
-insert into represa values(null, 'Represa 4', 400, 100, 2);
-insert into represa values(null, 'Represa 5', 500, 125, 2);
-insert into represa values(null, 'Represa 6', 600, 150, 2);
-insert into represa values(null, 'Represa 7', 700, 175, 3);
-insert into represa values(null, 'Represa 8', 800, 200, 3);
-insert into represa values(null, 'Represa 9', 900, 225, 3);
+insert into represa values(null, 'Represa 1', 100, 25, 1,'nao');
+insert into represa values(null, 'Represa 2', 200, 50, 1,'nao');
+insert into represa values(null, 'Represa 3', 300, 75, 1,'nao');
+insert into represa values(null, 'Represa 4', 400, 100, 2,'nao');
+insert into represa values(null, 'Represa 5', 500, 125, 2,'nao');
+insert into represa values(null, 'Represa 6', 600, 150, 2,'nao');
+insert into represa values(null, 'Represa 7', 700, 175, 3,'nao');
+insert into represa values(null, 'Represa 8', 800, 200, 3,'nao');
+insert into represa values(null, 'Represa 9', 900, 225, 3,'nao');
 
 select * from represa where id_abastecimento = 1;
 
