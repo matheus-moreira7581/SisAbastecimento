@@ -112,11 +112,13 @@ public class ManterAbastecimentoController {
 		try {
 			Represa represa = represaService.selecionarRepresa(id);
 			List<VolumeArmazenado> volArmList = volArmazenadoService.listarVolArmazenado(represa);
-			model.addAttribute("indice1", calcularIndice1(volArmList.get(0).getVolumeArmazenado(), represa.getVolumeUtil()));
-			model.addAttribute("indice2", calcularIndice2(represa.getVolumeUtil(), represa.getVolumeReservaTecnica(), 
-					volArmList.get(0).getVolumeArmazenado()));
-			model.addAttribute("indice3", calcularIndice3(volArmList.get(0).getVolumeArmazenado(), represa.getVolumeReservaTecnica(), 
-					represa.getVolumeUtil()));
+			if (!volArmList.isEmpty()) {
+				model.addAttribute("indice1", calcularIndice1(volArmList.get(0).getVolumeArmazenado(), represa.getVolumeUtil()));
+				model.addAttribute("indice2", calcularIndice2(represa.getVolumeUtil(), represa.getVolumeReservaTecnica(), 
+						volArmList.get(0).getVolumeArmazenado()));
+				model.addAttribute("indice3", calcularIndice3(volArmList.get(0).getVolumeArmazenado(), represa.getVolumeReservaTecnica(), 
+						represa.getVolumeUtil()));
+			}
 			model.addAttribute("represa", represaService.selecionarRepresa(id));
 			model.addAttribute("volArmazenado", volArmList);
 			model.addAttribute("pluviometriaList", pluviometriaService.listarPluviometria(represa));

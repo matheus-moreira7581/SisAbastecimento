@@ -52,9 +52,7 @@
                     <hr />
                     <div id="actions" class="row">
                         <div class="col-md-12">
-                            <a href="alterar_local?id=${sAbs.id }" class="btn btn-primary">Alterar</a>
-                            <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Excluir</a>
-                            <a href="ListarRepresasExibir" class="btn btn-default">Voltar</a>
+                            <a href="listarSisAbsExibir" class="btn btn-default">Voltar</a>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,7 @@
 package br.abastecimento.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +12,9 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="abastecimento")
-public class SisAbastecimento {
+public class SisAbastecimento implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id_abastecimento")
